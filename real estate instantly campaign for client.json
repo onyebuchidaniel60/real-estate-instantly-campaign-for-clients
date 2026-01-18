@@ -1,0 +1,599 @@
+{
+  "name": "real estate instantly campaign for client",
+  "nodes": [
+    {
+      "parameters": {
+        "batchSize": 15,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        912,
+        240
+      ],
+      "id": "49ddf79a-63f9-4f28-b083-b0880edf6a0e",
+      "name": "Loop Over Items",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "amount": 25
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2064,
+        256
+      ],
+      "id": "267e52ff-fc5d-483b-8369-7857c533a2fd",
+      "name": "Wait",
+      "webhookId": "64fd4ab9-d1de-47d3-aa66-641294a6a0cc"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cea70372-5349-4a6f-ad8f-60cce6d79f7d",
+              "name": "Account",
+              "value": "={{ $('Loop Over Items').item.json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "68c84665-1add-40cd-a3eb-5ad6f35c09fb",
+              "name": "Name",
+              "value": "={{ $('Loop Over Items').item.json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "b0fc7c42-f8a7-4e54-bdf0-ec50f294c8e3",
+              "name": "Email",
+              "value": "={{ $('Loop Over Items').item.json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "e1cffd4d-7a6b-4525-926a-7eefbb631987",
+              "name": "Biography",
+              "value": "={{ $('Loop Over Items').item.json.description }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2320,
+        304
+      ],
+      "id": "440d1812-08bd-4420-9a7f-58850d40345f",
+      "name": "Edit Fields1",
+      "alwaysOutputData": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1FyoYBRnxJJTur3pfiqA6cYiVvJKCKjE1ugzS6Kc3Y6E",
+          "mode": "list",
+          "cachedResultName": "automated cold outreach",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FyoYBRnxJJTur3pfiqA6cYiVvJKCKjE1ugzS6Kc3Y6E/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 890276169,
+          "mode": "list",
+          "cachedResultName": "kornel cold outreach campaign",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FyoYBRnxJJTur3pfiqA6cYiVvJKCKjE1ugzS6Kc3Y6E/edit#gid=890276169"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Account": "={{ $json.Account }}",
+            "Name": "={{ $json.Name }}",
+            "Email Address": "={{ $json.Email }}",
+            "Biography": "={{ $json.Biography}}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Account",
+              "displayName": "Account",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email Address",
+              "displayName": "Email Address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Biography",
+              "displayName": "Biography",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1344,
+        0
+      ],
+      "id": "bd495ff1-9049-48e2-ab5e-3298cb43a3fe",
+      "name": "Add data to instagram sheet",
+      "executeOnce": false,
+      "retryOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Z5dsNX2jnxWck6qn",
+          "name": "updated google sheets buchi nnamani"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "lead",
+        "operation": "addToCampaign",
+        "campaign": {
+          "__rl": true,
+          "value": "42551bdc-72d9-494b-bbe0-73e69c5c4bdf",
+          "mode": "list",
+          "cachedResultName": "Kornel's Campaign"
+        },
+        "email": "={{ $('Loop Over Items').item.json.email }}",
+        "firstName": "={{ $json.firstName }}",
+        "lastName": "={{ $json.lastName }}",
+        "customFields": {}
+      },
+      "type": "n8n-nodes-instantly.instantly",
+      "typeVersion": 1,
+      "position": [
+        1776,
+        256
+      ],
+      "id": "7bc22816-d14e-4286-882c-27f720a289f4",
+      "name": "Add lead to campaign",
+      "credentials": {
+        "instantlyApi": {
+          "id": "sUp1TjKGPe3sWG60",
+          "name": "Instantly account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n    const rawTitle = (item.json.title || '').toString().trim();\n\n    let firstName = '';\n    let lastName = '';\n\n    // If the title starts with a number, leave names blank\n    if (/^\\d/.test(rawTitle)) {\n        return {\n            json: {\n                firstName: '',\n                lastName: ''\n            }\n        };\n    }\n\n    // Extract @username inside parentheses if present\n    const atWithParenMatch = rawTitle.match(/\\(@([^\\s)]+)\\)/);\n\n    let cleanedTitle = rawTitle;\n\n    if (atWithParenMatch) {\n        // Remove the (@username) section for name extraction\n        cleanedTitle = rawTitle.replace(atWithParenMatch[0], '').trim();\n    }\n\n    // Remove any remaining parentheses and content\n    cleanedTitle = cleanedTitle.replace(/\\([^)]*\\)/g, '').trim();\n\n    // Split title into words\n    const words = cleanedTitle.split(/\\s+/);\n\n    if (words.length > 0) {\n        firstName = words[0] || '';\n    }\n\n    if (words.length > 1) {\n        lastName = words[1] || '';\n    }\n\n    return {\n        json: {\n            firstName,\n            lastName\n        }\n    };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1376,
+        256
+      ],
+      "id": "76b61dac-79b4-4b15-b428-308b4d9c5bed",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "url": "https://api.verify-email.app/v1/verify",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "input",
+              "value": "={{ $json.email }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "fb2b7bfb23f9e3c2a251d49a58191dc9a7bb65b107eb9e6c02b09ead0bb233ca"
+            }
+          ]
+        },
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 10,
+              "batchInterval": 3000
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        592,
+        512
+      ],
+      "id": "224c6ee8-c0fd-41e3-be24-c86ceaf085b7",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "batchSize": 30,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        368,
+        256
+      ],
+      "id": "7fea205e-09e4-49f6-8f33-eff9496b57bf",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "760998f0-9b88-4637-b162-3d6212c7501a",
+              "name": "keyword",
+              "value": "={{ $('Loop Over Items1').item.json.keyword }}",
+              "type": "string"
+            },
+            {
+              "id": "bc1fc85c-efb8-4282-aa71-34cf1141f645",
+              "name": "title",
+              "value": "={{ $('Loop Over Items1').item.json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "7884aafb-f2ed-417a-b259-03d082ddabe2",
+              "name": "url",
+              "value": "={{ $('Loop Over Items1').item.json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "86e746b5-bf05-4f2d-9dbc-2886b485838a",
+              "name": "email",
+              "value": "={{ $('Loop Over Items1').item.json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "cc550c59-30e6-4388-977f-68478ef7efc3",
+              "name": "description",
+              "value": "={{ $('Loop Over Items1').item.json.description }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1040,
+        496
+      ],
+      "id": "501f5c83-b3d7-4135-8bd4-3a35f542582f",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        960,
+        720
+      ],
+      "id": "f8163994-269f-48d7-b498-a2e1ce5099df",
+      "name": "Wait1",
+      "webhookId": "3aa9e5e4-1b87-4d68-a910-c47ed680be2d"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "efd4406a-d5a2-4bae-b664-7c52121c357d",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        800,
+        512
+      ],
+      "id": "2f098e71-9290-4fa1-83fb-9bb7b85a5546",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        400,
+        512
+      ],
+      "id": "f13d884a-bd88-4392-bb6e-af06a31b4ef7",
+      "name": "Wait2",
+      "webhookId": "ced46636-e570-4a32-8647-d0cf16b69c07"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -304,
+        256
+      ],
+      "id": "6453f589-5b2d-472b-be8d-9ea2524b79be",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1FyoYBRnxJJTur3pfiqA6cYiVvJKCKjE1ugzS6Kc3Y6E",
+          "mode": "list",
+          "cachedResultName": "automated cold outreach",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FyoYBRnxJJTur3pfiqA6cYiVvJKCKjE1ugzS6Kc3Y6E/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 41058820,
+          "mode": "list",
+          "cachedResultName": "real estate client outreach with gmail",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1FyoYBRnxJJTur3pfiqA6cYiVvJKCKjE1ugzS6Kc3Y6E/edit#gid=41058820"
+        },
+        "filtersUI": {
+          "values": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        16,
+        256
+      ],
+      "id": "5ed4d44c-25ff-4e1d-857f-936008378860",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Z5dsNX2jnxWck6qn",
+          "name": "updated google sheets buchi nnamani"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Add data to instagram sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add lead to campaign": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Add lead to campaign",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b20253be-2198-4cdb-80d2-3d052b8f0684",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "72830bf432026c6e2413b0d51581a1166b5a9283b21862c2057ffdeb236dd2bf"
+  },
+  "id": "rUOyou28ZQ2TfOic",
+  "tags": []
+}
